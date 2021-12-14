@@ -1,0 +1,16 @@
+account_id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+name = "vod_timing"
+type = "webpack"
+workers_dev = true
+site = { bucket = "./public" }
+compatibility_date = "2021-12-13"
+kv_namespaces = [ 
+	{ binding = "tokens", preview_id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" }
+]
+
+[vars]
+twitch_username = "username"
+
+# [secrets]
+# clientId
+# clientSecret

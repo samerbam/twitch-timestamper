@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@twurple/api": "^5.0.10",
+    "@twurple/auth": "^5.0.10"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.0.2"
+  }
+}

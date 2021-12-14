@@ -1,0 +1,6 @@
+dist
+node_modules
+worker-sites/node_modules
+wrangler.toml
+!node_modules/@twurple
+!worker-sites/node_modules/@twurple
