@@ -10,6 +10,8 @@ kv_namespaces = [
 
 [vars]
 twitch_username = "username"
+twitch_parser_url = "second_backend_url"
+
 
 # [secrets]
 # clientId

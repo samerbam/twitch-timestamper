@@ -1,22 +1,16 @@
-import { getAssetFromKV, mapRequestToAsset } from '@cloudflare/kv-asset-handler'
+import { getAssetFromKV, mapRequestToAsset } from '@cloudflare/kv-asset-handler';
 import { ApiClient } from '@twurple/api';
 import { RefreshingAuthProvider } from '@twurple/auth';
+import { parse } from 'node-html-parser';
+const util = require('util');
 
-
-
-/**
- * The DEBUG flag will do two things that help during development:
- * 1. we will skip caching on the edge, which makes it easier to
- *    debug.
- * 2. we will return an error message on exception in your Response rather
- *    than the default 404.html page.
- */
 const DEBUG = false
 
 addEventListener('fetch', event => {
-      if (event.request.method == "GET"){
+      const url = new URL(event.request.url)
+      if (event.request.method == "GET") {
         // Handle GET requests
-        event.respondWith(handleGet(event))
+          event.respondWith(handleGet(event))
       }
       else if(event.request.method === "POST") {
         // Handle POST requests
@@ -41,7 +35,17 @@ async function handlePost(event) {
     const twitchVideoId = (await event.request.json()).vodLink
     const vidData = await apiClient.videos.getVideoById(twitchVideoId)
 
-    const response = new Response(JSON.stringify({"vodName": vidData.title, "vodDate": vidData.creationDate}), {headers: {}})
+    const vodTimes = await fetch("https://"+ twitch_parser_url +"/twitch/" + twitchVideoId, {cf: {cacheTtl: 1800, cacheEverything: true}}).then(async function(response) {
+      console.log('hmm')
+        if (!response.ok) {
+            console.log('error')
+            return JSON.stringify({'error': 'Server Error'})
+          }
+          console.log('yay')
+        return await gatherResponse(response);
+      })
+
+    const response = new Response(JSON.stringify({"vodName": vidData.title, "vodDate": vidData.creationDate, "vodTimes": vodTimes}), {headers: {}})
 
     response.headers.set('X-XSS-Protection', '1; mode=block')
     response.headers.set('X-Content-Type-Options', 'nosniff')
@@ -57,15 +61,12 @@ async function handleGet(event) {
 
   try {
     if (DEBUG) {
-      // customize caching
       options.cacheControl = {
         bypassCache: true,
       }
     }
 
     const page = await getAssetFromKV(event, options)
-
-    // allow headers to be altered
     const response = new Response(page.body, page)
 
     response.headers.set('X-XSS-Protection', '1; mode=block')
@@ -89,5 +90,22 @@ async function handleGet(event) {
     }
 
     return new Response(e.message || e.toString(), { status: 500 })
+  }
+}
+
+async function gatherResponse(response) {
+  const { headers } = response
+  const contentType = headers.get("content-type") || ""
+  if (contentType.includes("application/json")) {
+    return JSON.stringify(await response.json())
+  }
+  else if (contentType.includes("application/text")) {
+    return response.text()
+  }
+  else if (contentType.includes("text/html")) {
+    return response.text()
+  }
+  else {
+    return response.text()
   }
 }

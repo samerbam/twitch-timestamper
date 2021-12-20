@@ -12,44 +12,126 @@
     <body>
         <div class="flex flex-col absolute left-1 top-1">
             <h1 class="text-2xl semibold"><a href="/" class="text-blue-500">Vod Timestamper</a></h1>
-            <h2 class="text-xs semibold">Made with ❤️ by <a href="https://github.com/samerbam" class="text-blue-500">Sam</a></h2>
-            <h3 class="text-xs semibold"><a href="#">Sourcecode can be found <span class="text-blue-500">here</span></a></h3>
+            <h2 class="text-xs semibold">Made with ❤ by <a href="https://github.com/samerbam" class="text-blue-500">Sam</a></h2>
+            <h3 class="text-xs semibold">Sourcecode can be found <a href="#" class="text-blue-500">here</a></h3>
+            <h4 class="text-xs semibold">Click <a href="#" onclick="features()" class="text-blue-500">here</a> for features.</h4>
+
         </div>
         <div class="grid place-items-center h-screen">
-            <div id="vodViewer" class="p-10 shadow-2xl rounded-md hidden mb-5">
-                
-                <iframe
-                    src="https://player.twitch.tv/?video=v1177784188&parent=127.0.0.1&autoplay=false"
-                    height="300"
-                    width="530"
-                    allowfullscreen="true"
-                    id="vodIFrame">
-                </iframe>
 
+            <div id="featuresPopup" class="hidden">
+                <div class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+                  <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true" onclick="features(true)"></div>
+                    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                    <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                      <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                        
+                        <div class="sm:flex sm:items-start mb-7">
+                            <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                                <h2 class="text-xl leading-6 font-medium text-gray-900" id="modal-title">
+                                    Features
+                                </h2>
+                            </div>
+                        </div>
+
+                        <div class="sm:flex sm:items-start mb-5">
+                          <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-purple-100 sm:mx-0 sm:h-10 sm:w-10">
+                            <!-- Heroicon name: outline/calendar -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                          </div>
+                          <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+                              Exact Vod Date.
+                            </h3>
+                            <div class="mt-2">
+                              <p class="text-sm text-gray-500">
+                                Uses the twitch api to grab the exact date the stream happened.
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="sm:flex sm:items-start mb-5">
+                          <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-emerald-100 sm:mx-0 sm:h-10 sm:w-10">
+                            <!-- Heroicon name: outline/clock -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+
+                          </div>
+                          <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+                                Twitch Game Chapters
+                            </h3>
+                            <div class="mt-2">
+                              <p class="text-sm text-gray-500">
+                                Gets the timestamps of when the game catagory changes.
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
+
+
+                        <div class="sm:flex sm:items-start mb-2.5">
+                          <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-pink-100 sm:mx-0 sm:h-10 sm:w-10">
+                            <!-- Heroicon name: outline/document_text -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-pink-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                          </div>
+                          <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+                              Title & Timestamps
+                            </h3>
+                            <div class="mt-2">
+                              <p class="text-sm text-gray-500">
+                                Generates the title and timestamps for the description.
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                      <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                        <button type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm" onclick="features(true)">
+                          Okay
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>                
+            </div>
+
+
+            <div id="vodViewer" class="p-10 shadow-2xl rounded-md hidden mb-5">
+                <div id="twitch-embed"></div>
             </div>
 
             <div id="outputDiv" class="p-10 shadow-2xl rounded-md mt-0 hidden w-1/2 mb-5">
                 <textarea id="output" class="border-2 rounded-lg border-indigo-500 focus:border-indigo-600 bg-gray-100 w-full h-52 mb-0"></textarea>
 
                 <div class="flex flex-row">
-                    
                     <button onclick="clickToCopy()" class="text-sm transition-colors hover:text-blue-500 mt-0.5 ml-0.5 mr-auto"><span>Click to copy</span></button>
                     <button onclick="clickToRestart()" class="text-sm transition-colors hover:text-blue-500 mt-0.5 mr-0.5 ml-auto"><span>Click to restart</span></button>
-
-
                 </div>
-
-                <!-- <a onclick="clickToCopy()" class="text-sm transition-colors hover:text-blue-500 mt-0.5 ml-0.5" href="#">Click to copy</a> -->
             </div>
+
 
             <div class="p-10 shadow-2xl rounded-md mt-0">
                     <div id="vodLinkView">
-                      <input id="vodLink" type="text" placeholder="Twitch Vod Link" class="bg-gray-100 p-2 rounded-lg border-2 border-indigo-500 shadow-md focus:outline-none focus:border-indigo-600 w-8/12" />
+                        <input id="vodLink" type="text" placeholder="Twitch Vod Link" class="bg-gray-100 p-2 rounded-lg border-2 border-indigo-500 shadow-md focus:outline-none focus:border-indigo-600 w-8/12" autofocus/>
                         <button id="vodSearchButton" class="bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg p-2 border-2 border-indigo-500 hover:border-indigo-600 cursor-not-allowed" onclick="onButton()" disabled>
                             Start
                         </button>
                     </div>
-
+                    <div class="grid place-items-center mt-10 hidden" id="error"></div>
+                    <div class="grid place-items-center mt-10 hidden" id="loader">
+                        <div style="border-top-color:transparent" class="border-solid animate-spin rounded-full border-blue-400 border-8 h-8 w-8"></div>
+                    </div>
                     <div id="vodTimeEditor" class="h-52 hidden">
                         <div class="flex flex-row mb-5">
                             <h1 id="vodTitle" class="font-semibold text-xl flex-auto mr-10">Example</h1>
@@ -57,26 +139,7 @@
                         </div>
                         <h3 class="font-semibold text-md">Game Timestamps</h3>
                         <div id="timestamp-list" class="overflow-auto h-28">
-                            <div class="flex flex-row w-full mb-1.5">
-                                <input id="vodLink" type="text" placeholder="Name" class="flex-grow bg-gray-100 p-2 rounded-lg border-2 border-indigo-500 shadow-md focus:outline-none focus:border-indigo-600 w-8/12 mr-2" />
-
-                                <!-- mx-auto my-12 p-12  -->
-                                <!-- <div class="container flex-none border-2 border-red-100"> -->
-
-                                  <div class="inline-flex text-lg border rounded-lg shadow-lg p-2 mr-2">
-                                    <input maxlength="2" class="px-2 w-10 outline-none appearance-none bg-transparent"/>
-                                    <span class="px-2">:</span>
-                                    <input maxlength="2" class="px-2 w-10 outline-none appearance-none bg-transparent"/>
-                                    <span class="px-2">:</span>
-                                    <input maxlength="2" class="px-2 w-10 outline-none appearance-none bg-transparent"/>
-                                  </div>
-
-                                <button class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg p-2 border-2 border-red-500 hover:border-red-600" onclick="removeSection(this)">
-                                    Remove
-                                </button>
-
-                            </div>
-                            <div class="flex flex-row w-full mb-1.5">
+                            <!-- <div class="flex flex-row w-full mb-1.5">
                                 <input id="vodLink" type="text" placeholder="Name" class="flex-grow bg-gray-100 p-2 rounded-lg border-2 border-indigo-500 shadow-md focus:outline-none focus:border-indigo-600 w-8/12 mr-2" />
 
                                   <div class="inline-flex text-lg border rounded-lg shadow-lg p-2 mr-2">
@@ -90,27 +153,10 @@
                                 <button class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg p-2 border-2 border-red-500 hover:border-red-600" onclick="removeSection(this)">
                                     Remove
                                 </button>
-
-                            </div>
-                            <div class="flex flex-row w-full mb-1.5">
-                                <input id="vodLink" type="text" placeholder="Name" class="flex-grow bg-gray-100 p-2 rounded-lg border-2 border-indigo-500 shadow-md focus:outline-none focus:border-indigo-600 w-8/12 mr-2" />
-
-                                  <div class="inline-flex text-lg border rounded-lg shadow-lg p-2 mr-2">
-                                    <input maxlength="2" class="px-2 w-10 outline-none appearance-none bg-transparent"/>
-                                    <span class="px-2">:</span>
-                                    <input maxlength="2" class="px-2 w-10 outline-none appearance-none bg-transparent"/>
-                                    <span class="px-2">:</span>
-                                    <input maxlength="2" class="px-2 w-10 outline-none appearance-none bg-transparent"/>
-                                  </div>
-
-                                <button class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg p-2 border-2 border-red-500 hover:border-red-600" onclick="removeSection(this)">
-                                    Remove
-                                </button>
-
-                            </div>
+                            </div> -->
                         </div>
                         <div class="flex flex-row">
-                            <button class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg p-2 border-2 border-green-500 hover:border-green-600 mt-2.5 mr-auto" onclick="addSection()">
+                            <button class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg p-2 border-2 border-green-500 hover:border-green-600 mt-2.5 mr-auto" onclick="addSection('', '', '', '')">
                                 Add Section
                             </button>
                             <button class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg p-2 border-2 border-blue-500 hover:border-blue-600 mt-2.5 ml-auto" onclick="generateOutput()">
@@ -121,6 +167,7 @@
             </div>
         </div>
 
+        <script src="https://embed.twitch.tv/embed/v1.js"></script>
         <script type="text/javascript">
             const input = document.getElementById("vodLink");
             input.addEventListener('input', inputValidaton);
@@ -130,6 +177,20 @@
                 input.classList.add("focus:border-" + setColor + "-600")
                 input.classList.remove("border-" + removeColor + "-500")
                 input.classList.remove("focus:border-" + removeColor + "-600")
+            }
+
+
+            document.getElementById('vodLink').onkeypress = function(e) {
+                if(e.keyCode == 13) {
+                    onButton()
+                }
+            }
+
+            function features(hide=false) {
+                document.getElementById("featuresPopup").classList.remove("hidden")
+                if (hide) {
+                    document.getElementById("featuresPopup").classList.add("hidden")
+                }
             }
 
             function inputValidaton(event) {
@@ -183,21 +244,42 @@
 
             function startEditor(json) {
                 document.getElementById("vodLinkView").style.display = "none";
+                console.log(json)
+                var vodTimes = JSON.parse(json['vodTimes'])
+                console.log(vodTimes)
 
                 document.getElementById("vodTitle").innerHTML = json.vodName
                 document.getElementById("vodDate").innerHTML = json.vodDate.split("T")[0].split("-")[1] + "-" + json.vodDate.split("T")[0].split("-")[2]+ "-" + json.vodDate.split("T")[0].split("-")[0]
 
+                if ("error" in vodTimes) {
+                    addSection('', '', '', '')
+                } else {
+                    for (var i = 0; i<vodTimes['data']['length']; i++) {
+                        console.log(vodTimes['data'][i])
+                        addSection(vodTimes['data'][i]['game'], vodTimes['data'][i]['startTime'].split(':')[0], vodTimes['data'][i]['startTime'].split(':')[1])
+                    }
+                }
+
                 document.getElementById("vodTimeEditor").classList.remove("hidden");
 
-                document.getElementById("vodIFrame").src = "https://player.twitch.tv/?video=v" + url.pathname.split("/")[2] + "&parent=127.0.0.1&autoplay=false"
+                const embed = new Twitch.Embed("twitch-embed", {
+                    width: 530,
+                    height: 300,
+                    video: url.pathname.split("/")[2],
+                    autoplay: false
+                });
+
                 document.getElementById("vodViewer").classList.remove("hidden")
             }
 
-            function addSection() {
+
+            
+
+            function addSection(name, hours, minutes, seconds="00") {
 
                 const vte = document.getElementById("timestamp-list")
 
-                vte.innerHTML += '<div class="flex flex-row w-full mb-1.5"><input id="vodLink" type="text" placeholder="Name" class="flex-grow bg-gray-100 p-2 rounded-lg border-2 border-indigo-500 shadow-md focus:outline-none focus:border-indigo-600 w-8/12 mr-2" /><div class="inline-flex text-lg border rounded-lg shadow-lg p-2 mr-2"><input maxlength="2" class="px-2 w-10 outline-none appearance-none bg-transparent"/><span class="px-2">:</span><input maxlength="2" class="px-2 w-10 outline-none appearance-none bg-transparent"/><span class="px-2">:</span><input maxlength="2" class="px-2 w-10 outline-none appearance-none bg-transparent"/></div><button class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg p-2 border-2 border-red-500 hover:border-red-600" onclick="removeSection(this)">Remove</button></div>'
+                vte.innerHTML += '<div class="flex flex-row w-full mb-1.5"><input id="vodLink" type="text" placeholder="Name" class="flex-grow bg-gray-100 p-2 rounded-lg border-2 border-indigo-500 shadow-md focus:outline-none focus:border-indigo-600 w-8/12 mr-2" value="'+ name +'"/><div class="inline-flex text-lg border rounded-lg shadow-lg p-2 mr-2"><input maxlength="2" class="px-2 w-10 outline-none appearance-none bg-transparent" value="'+ hours +'"/><span class="px-2">:</span><input maxlength="2" class="px-2 w-10 outline-none appearance-none bg-transparent" value="'+ minutes +'"/><span class="px-2">:</span><input maxlength="2" class="px-2 w-10 outline-none appearance-none bg-transparent" value="'+ seconds +'"/></div><button class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg p-2 border-2 border-red-500 hover:border-red-600" onclick="removeSection(this)">Remove</button></div>'
             }
 
             function removeSection(e) {
@@ -248,19 +330,34 @@
 
             function onButton() {
                 var xhr = new XMLHttpRequest();
-                var url = "127.0.0.1:8787";
+                var url = "/";
                 xhr.open("POST", url, true);
                 xhr.setRequestHeader("Content-Type", "application/json");
                 xhr.onreadystatechange = function () {
                     if (xhr.readyState === 4 && xhr.status === 200) {
                         var json = JSON.parse(xhr.responseText);
                         console.log(json.vodName + ", " + json.vodDate)
+                        document.getElementById("error").classList.add("hidden")
+                        document.getElementById("loader").classList.add("hidden")
                         startEditor(json)
+                    } else if (xhr.status == 500) {
+                        console.log('Server Error (probably invalid video id)')
+                        const error = document.getElementById("error").innerHTML = "Video no longer exists."
+                        document.getElementById("error").classList.remove("hidden")
+                        document.getElementById("loader").classList.add("hidden")
                     }
                 };
+                xhr.onerror = function () {
+                    console.log('Server Error (probably invalid video id)')
+                    const error = document.getElementById("error").innerHTML = "Video no longer exists."
+                    document.getElementById("error").classList.remove("hidden")
+                    document.getElementById("loader").classList.add("hidden")
+                }
 
                 url = new URL(input.value);
                 var data = JSON.stringify({"vodLink": url.pathname.split("/")[2]});
+                document.getElementById("error").classList.add("hidden")
+                document.getElementById("loader").classList.remove("hidden")
                 xhr.send(data);
             }
         </script>
