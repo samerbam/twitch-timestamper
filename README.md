@@ -13,7 +13,7 @@
 5. Create kv:namespace named tokens `wrangler kv:namespace create "tokens"`
 6. Create preview kv:namespace named tokens `wrangler kv:namespace create --preview "NAMESPACE"`
 7. Set `twitch_username` in `wrangler.toml` to the username of the twitch account you used to create the twitch application.
-8. Set `twitch_parser_url` in `wrangler.toml` to the URL where `[twitchVodGameTypeParser](https://github.com/samerbam/twitchVodGameTypeParser)` is hosted.
+8. Set `twitch_parser_url` in `wrangler.toml` to the URL where [twitchVodGameTypeParser](https://github.com/samerbam/twitchVodGameTypeParser) is hosted.
 9. Set the secret `clientID` to your client id which you got in step 2 `wrangler secret put clientID`
 10. Set the secret `clientSecret` to your client secret which you got in step 2 `wrangler secret put clientSecret`
 11. Install npm dependencies `npm install` (might need to manually copy the @twurple node_module in this repo back into the node_module folder after npm install)
