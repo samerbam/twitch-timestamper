@@ -5,4 +5,4 @@
 	* Included module here.
 
 ### Needs secondary program running on a server.
-	Link: https://github.com/samerbam/twitchVodGameTypeParser
+	https://github.com/samerbam/twitchVodGameTypeParser
