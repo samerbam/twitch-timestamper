@@ -21,6 +21,45 @@ addEventListener('fetch', event => {
       }
 })
 
+addEventListener("scheduled", event => {
+  event.respondWith(handleScheduled(event))
+})
+
+async function handleScheduled(event) {
+  const tokenData = JSON.parse(await tokens.get("tokenData"));
+    const authProvider = new RefreshingAuthProvider(
+      {
+        clientId,
+        clientSecret,
+        onRefresh: async newTokenData => await tokens.put('tokenData', JSON.stringify(newTokenData, null, 4))
+      },
+      tokenData
+    );
+  const apiClient = new ApiClient({ authProvider });
+
+  const res = await apiClient.videos.getVideosByUser(await apiClient.users.getUserByName("x33n"))
+  for await (const vid of res.data) {
+    console.log(vid.id + ": ")
+    let currentVid = await tokens.get(vid.id.toString())
+    if (currentVid === null) {
+      await fetch("https://"+ twitch_parser_url +"/twitch/" + vid.id, {cf: {cacheTtl: 1800, cacheEverything: true}}).then(async function(response) {
+        console.log('fetched.')
+          if (!response.ok) {
+              console.log('error')
+              tokens.put(vid.id.toString(), JSON.stringify({'error': 'Server Error'}), {expirationTtl: 86400})
+              return;
+            }
+            console.log('yay')
+            console.log('=')
+          let gRes = await gatherResponse(response);
+          await tokens.put(vid.id.toString(), JSON.stringify({"vodName": vid.title, "vodDate": vid.creationDate, "vodTimes": gRes}));
+          return;
+        })
+    }
+  }
+  return new Response(200, {'status': 200})
+}
+
 async function handlePost(event) {
     const tokenData = JSON.parse(await tokens.get("tokenData"));
     const authProvider = new RefreshingAuthProvider(
@@ -35,17 +74,27 @@ async function handlePost(event) {
     const twitchVideoId = (await event.request.json()).vodLink
     const vidData = await apiClient.videos.getVideoById(twitchVideoId)
 
-    const vodTimes = await fetch("https://"+ twitch_parser_url +"/twitch/" + twitchVideoId, {cf: {cacheTtl: 1800, cacheEverything: true}}).then(async function(response) {
-      console.log('hmm')
-        if (!response.ok) {
-            console.log('error')
-            return JSON.stringify({'error': 'Server Error'})
-          }
-          console.log('yay')
-        return await gatherResponse(response);
-      })
 
-    const response = new Response(JSON.stringify({"vodName": vidData.title, "vodDate": vidData.creationDate, "vodTimes": vodTimes}), {headers: {}})
+    let responseJson = ""
+    const cachedValue = await tokens.get(twitchVideoId.toString())
+    if (cachedValue === null) {
+      responseJson = await fetch("https://"+ twitch_parser_url +"/twitch/" + twitchVideoId, {cf: {cacheTtl: 1800, cacheEverything: true}}).then(async function(response) {
+        console.log('hmm')
+          if (!response.ok) {
+              console.log('error')
+              tokens.put(twitchVideoId.toString(), JSON.stringify({'error': 'Server Error'}), {expirationTtl: 86400})
+              return JSON.stringify({'error': 'Server Error'})
+            }
+            console.log('yay')
+          let gRes = gatherResponse(response);
+          await tokens.put(twitchVideoId.toString(), JSON.stringify({"vodName": vidData.title, "vodDate": vidData.creationDate, "vodTimes": gRes}));
+          return JSON.stringify({"vodName": vidData.title, "vodDate": vidData.creationDate, "vodTimes": gRes});
+        })
+    } else {
+      responseJson = cachedValue
+    }
+
+    const response = new Response(responseJson, {headers: {}})
 
     response.headers.set('X-XSS-Protection', '1; mode=block')
     response.headers.set('X-Content-Type-Options', 'nosniff')
