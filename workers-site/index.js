@@ -22,6 +22,7 @@ addEventListener('fetch', event => {
 })
 
 addEventListener("scheduled", event => {
+// addEventListener("fetch", event => {
   event.respondWith(handleScheduled(event))
 })
 
@@ -46,7 +47,8 @@ async function handleScheduled(event) {
         console.log('fetched.')
           if (!response.ok) {
               console.log('error')
-              tokens.put(vid.id.toString(), JSON.stringify({'error': 'Server Error'}), {expirationTtl: 86400})
+              // tokens.put(vid.id.toString(), JSON.stringify({'error': 'Server Error'}), {expirationTtl: 86400})
+              tokens.put(vid.id.toString(), JSON.stringify({"vodName": vid.title, "vodDate": vid.creationDate, "vodTimes": JSON.stringify({'error': 'Server Error'})}), {expirationTtl: 86400})
               return;
             }
             console.log('yay')
@@ -82,7 +84,7 @@ async function handlePost(event) {
         console.log('hmm')
           if (!response.ok) {
               console.log('error')
-              tokens.put(twitchVideoId.toString(), JSON.stringify({'error': 'Server Error'}), {expirationTtl: 86400})
+              tokens.put(vid.id.toString(), JSON.stringify({"vodName": vid.title, "vodDate": vid.creationDate, "vodTimes": JSON.stringify({'error': 'Server Error'})}), {expirationTtl: 86400})
               return JSON.stringify({'error': 'Server Error'})
             }
             console.log('yay')
