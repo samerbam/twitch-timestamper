@@ -84,11 +84,11 @@ async function handlePost(event) {
         console.log('hmm')
           if (!response.ok) {
               console.log('error')
-              tokens.put(vid.id.toString(), JSON.stringify({"vodName": vid.title, "vodDate": vid.creationDate, "vodTimes": JSON.stringify({'error': 'Server Error'})}), {expirationTtl: 86400})
-              return JSON.stringify({'error': 'Server Error'})
+              tokens.put(twitchVideoId.toString(), JSON.stringify({"vodName": vidData.title, "vodDate": vidData.creationDate, "vodTimes": JSON.stringify({'error': 'Server Error'})}), {expirationTtl: 86400})
+              return JSON.stringify({"vodName": vidData.title, "vodDate": vidData.creationDate, "vodTimes": JSON.stringify({'error': 'Server Error'})});
             }
             console.log('yay')
-          let gRes = gatherResponse(response);
+          let gRes = await gatherResponse(response);
           await tokens.put(twitchVideoId.toString(), JSON.stringify({"vodName": vidData.title, "vodDate": vidData.creationDate, "vodTimes": gRes}));
           return JSON.stringify({"vodName": vidData.title, "vodDate": vidData.creationDate, "vodTimes": gRes});
         })
