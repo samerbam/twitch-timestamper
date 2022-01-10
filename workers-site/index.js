@@ -22,8 +22,9 @@ addEventListener('fetch', event => {
 })
 
 addEventListener("scheduled", event => {
+    event.waitUntil(handleScheduled(event))
 // addEventListener("fetch", event => {
-  event.respondWith(handleScheduled(event))
+  // event.respondWith(handleScheduled(event))
 })
 
 async function handleScheduled(event) {

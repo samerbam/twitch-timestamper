@@ -354,7 +354,11 @@
                     document.getElementById("loader").classList.add("hidden")
                 }
 
-                url = new URL(input.value);
+                if (!input.value.startsWith("http://") && !input.value.startsWith("https://")) {
+                    url = new URL("https://" + input.value);
+                } else {
+                    url = new URL(input.value);
+                }
                 var data = JSON.stringify({"vodLink": url.pathname.split("/")[2]});
                 document.getElementById("error").classList.add("hidden")
                 document.getElementById("loader").classList.remove("hidden")
