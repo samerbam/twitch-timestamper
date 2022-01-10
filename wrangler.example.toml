@@ -13,6 +13,13 @@ twitch_username = "username"
 twitch_parser_url = "second_backend_url"
 
 
+[miniflare]
+host = "127.0.0.1"                 # --host
+port = 8787                        # --port
+watch = true                       # --watch
+live_reload = true                 # --live-reload
+debug = true
+
 # [secrets]
 # clientId
 # clientSecret
