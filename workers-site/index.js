@@ -75,12 +75,12 @@ async function handlePost(event) {
     );
     const apiClient = new ApiClient({ authProvider });
     const twitchVideoId = (await event.request.json()).vodLink
-    const vidData = await apiClient.videos.getVideoById(twitchVideoId)
 
 
     let responseJson = ""
     const cachedValue = await tokens.get(twitchVideoId.toString())
     if (cachedValue === null) {
+      const vidData = await apiClient.videos.getVideoById(twitchVideoId)
       responseJson = await fetch("https://"+ twitch_parser_url +"/twitch/" + twitchVideoId, {cf: {cacheTtl: 1800, cacheEverything: true}}).then(async function(response) {
         console.log('hmm')
           if (!response.ok) {
