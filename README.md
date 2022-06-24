@@ -20,7 +20,7 @@
 11. Publish to your cloudflare subdomain with `wrangler publish` or run locally with `wrangler dev`
 
 ### Had to make small small change to @twurple library
-#### NOTE: I recommend downloading the twurple library with npm and removing all instances of `@d-fischer/cross-fetch` manually, However, this is included for reference.
+#### NOTE: I recommend downloading the twurple library with npm and removing all instances of `@d-fischer/cross-fetch` manually, However, [this](https://github.com/samerbam/twitch-timestamper/tree/master/node_modules/%40twurple) is included for reference.
 	* Removed all instances of `@d-fischer/cross-fetch` in @twurple
 	* Included module here.
 
