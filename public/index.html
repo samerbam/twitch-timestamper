@@ -198,6 +198,8 @@
                     if (!(event.target.value == "" || event.target.value == " ")) {
                         if (event.target.value.startsWith("http://") || event.target.value.startsWith("https://")) {
                             url = event.target.value
+                        } else if (/^\d+$/.test(event.target.value) && (event.target.value.length == 10)) {
+                            url = "https://twitch.tv/videos/" + event.target.value
                         } else {
                             url = "https://" + event.target.value
                         }
@@ -342,19 +344,21 @@
                         startEditor(json)
                     } else if (xhr.status == 500) {
                         console.log('Server Error (probably invalid video id)')
-                        const error = document.getElementById("error").innerHTML = "Video no longer exists."
+                        const error = document.getElementById("error").innerHTML = "Video Metadata is either not cached or the video no longer exists on twitch."
                         document.getElementById("error").classList.remove("hidden")
                         document.getElementById("loader").classList.add("hidden")
                     }
                 };
                 xhr.onerror = function () {
                     console.log('Server Error (probably invalid video id)')
-                    const error = document.getElementById("error").innerHTML = "Video no longer exists."
+                    const error = document.getElementById("error").innerHTML = "Video Metadata is either not cached or the video no longer exists on twitch."
                     document.getElementById("error").classList.remove("hidden")
                     document.getElementById("loader").classList.add("hidden")
                 }
 
-                if (!input.value.startsWith("http://") && !input.value.startsWith("https://")) {
+                if (/^\d+$/.test(input.value) && (input.value.length == 10)) {
+                    url = new URL("https://twitch.tv/videos/" + input.value);
+                } else if (!input.value.startsWith("http://") && !input.value.startsWith("https://")) {
                     url = new URL("https://" + input.value);
                 } else {
                     url = new URL(input.value);
