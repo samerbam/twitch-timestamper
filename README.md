@@ -3,7 +3,7 @@
 ## Requirements
 • [Cloudflare free tier account](https://dash.cloudflare.com/sign-up)
 • [wrangler](https://developers.cloudflare.com/workers/cli-wrangler)
-• node (recommend using [nvm](https://github.com/nvm-sh/nvm) to install)
+• [node](https://nodejs.org/) (recommend using [nvm](https://github.com/nvm-sh/nvm) to install)
 
 ## Setup
 1. Clone this repository into a directory `git clone https://github.com/samerbam/twitch-timestamper`
